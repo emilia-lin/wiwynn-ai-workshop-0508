@@ -1,0 +1,53 @@
+schema: spec-driven
+
+context: |
+  ## Project
+  Enterprise internal fleet & HR management SPA. Target users: internal staff
+  (admin + regular employees), desktop browsers only. No real backend — all API
+  calls are intercepted by MSW 2.x in Service Worker mode.
+
+  ## Tech Stack
+  - React 19, TypeScript 6, Vite 8
+  - Routing: React Router v7 — `createBrowserRouter`, nested routes with `<Outlet>`
+  - Data fetching: TanStack React Query v5 — all API calls wrapped in `src/api/`;
+    components never call `fetch` directly
+  - Mock API: MSW 2.x browser mode — handlers in `src/mocks/handlers/`,
+    seed data in `src/mocks/data/`, in-memory store resets on page refresh
+  - Styling: Tailwind CSS 4 (via @tailwindcss/vite), path alias `@/` → `src/`
+  - UI: shadcn/ui components in `src/components/ui/` (install with
+    `npx shadcn@latest add <component>`); Radix UI primitives
+  - Forms: React Hook Form + Zod schema validation
+  - Animation: Framer Motion, Magic UI (`src/components/magicui/`)
+  - Charts: Recharts (dashboard only)
+  - Icons: Lucide React
+  - Auth: simulated JWT stored in localStorage; `AuthContext` provides global
+    `{ token, role, name }`; `ProtectedRoute` guards all auth-required routes;
+    `AdminRoute` additionally checks `role === "admin"`
+
+  ## Domain
+  - **Vehicle**: `id` (string), `licensePlate`, `brand`, `model`, `year` (number),
+    `status` ("available" | "in-use" | "maintenance")
+  - **Employee**: `id` (string), `name`, `department`, `role`, `email`
+  - Routes: `/login`, `/dashboard`, `/vehicles`, `/employees` (admin only)
+  - Mock REST endpoints: `/api/vehicles` and `/api/employees` (full CRUD)
+
+  ## Conventions
+  - Conventional commits: feat, fix, chore, docs, style, refactor, test
+  - New shadcn/ui components go in `src/components/ui/` via `npx shadcn@latest add`
+  - Feature-level components (dialogs, forms) go in `src/components/`
+  - Custom React Query hooks go in `src/hooks/`
+  - No unit tests, no E2E tests, no mobile RWD, no i18n, no real backend
+
+rules:
+  proposal:
+    - Clearly state whether the change is frontend-only or requires new mock API handlers
+    - Include a Non-Goals section to scope the change
+    - Note any new shadcn/ui components that need to be installed
+  design:
+    - Use BDD WHEN/THEN format for all scenarios
+    - Define any new data model fields explicitly with types
+    - Specify the exact mock API endpoints (method + path) affected
+  tasks:
+    - Each task must be self-contained and implementable without a real backend
+    - Separate tasks for: mock API handler, React Query hook, UI component, page wiring
+    - Keep tasks small enough to complete in one focused session
