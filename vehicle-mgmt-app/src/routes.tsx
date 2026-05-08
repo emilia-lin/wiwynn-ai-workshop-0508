@@ -6,6 +6,7 @@ import Login from '@/pages/Login'
 import Dashboard from '@/pages/Dashboard'
 import Vehicles from '@/pages/Vehicles'
 import Employees from '@/pages/Employees'
+import ActivityLog from '@/pages/ActivityLog'
 
 export const router = createBrowserRouter([
   { path: '/login', element: <Login /> },
@@ -20,7 +21,10 @@ export const router = createBrowserRouter([
           { path: '/vehicles', element: <Vehicles /> },
           {
             element: <AdminRoute />,
-            children: [{ path: '/employees', element: <Employees /> }],
+            children: [
+              { path: '/employees', element: <Employees /> },
+              { path: '/activity-log', element: <ActivityLog /> },
+            ],
           },
         ],
       },

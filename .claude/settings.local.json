@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(openspec instructions *)"
+      "Bash(openspec instructions *)",
+      "Bash(npx tsc *)",
+      "Bash(npx skills *)"
     ]
   }
 }

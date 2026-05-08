@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, Car, Users } from 'lucide-react'
+import { LayoutDashboard, Car, Users, ClipboardList } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { cn } from '@/lib/utils'
 
@@ -10,6 +10,7 @@ const navItems = [
 
 const adminItems = [
   { to: '/employees', label: '員工管理', icon: Users },
+  { to: '/activity-log', label: '使用者紀錄', icon: ClipboardList },
 ]
 
 export function Sidebar() {

@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw'
+import { setCurrentUser } from '../data/activityLogs'
 
 const USERS = [
   { username: 'admin', password: 'admin123', name: 'Admin User', role: 'admin' as const },
@@ -12,6 +13,7 @@ export const authHandlers = [
     if (!found) {
       return HttpResponse.json({ message: '帳號或密碼錯誤' }, { status: 401 })
     }
+    setCurrentUser(found.username, found.name)
     return HttpResponse.json({
       token: `mock-token-${found.username}-${Date.now()}`,
       name: found.name,
